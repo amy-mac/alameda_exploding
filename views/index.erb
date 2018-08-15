@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <title>Is Alameda exploding?</title>
   </head>
@@ -9,6 +9,10 @@
 
     <% if @holidays %>
       <p>Probably because it's <%= @holidays %></p>
+    <% elsif !@sports.empty? %>
+      <% @sports.each do |team| %>
+        <p>The <%= team %> are playing tonight and just won.</p>
+      <% end %>
     <% else %>
       <p>No idea, it might be Armageddon</p>
     <% end %>
