@@ -1,7 +1,7 @@
 require "sinatra"
 require "date"
 require "holidays"
-require "HTTParty"
+require "httparty"
 require "pry" if development?
 require "sinatra/reloader" if development?
 
