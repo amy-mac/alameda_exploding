@@ -1,5 +1,5 @@
 require "sinatra"
-require "Date"
+require "date"
 require "Holidays"
 require "HTTParty"
 require "pry" if development?
