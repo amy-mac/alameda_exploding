@@ -3,20 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Is Alameda exploding?</title>
+    <link rel="stylesheet" href="/main.css">
   </head>
 
   <body>
-    <h1>What are those loud noises in Alameda?</h1>
+    <div class="container">
+      <h1>What are those loud noises in Alameda?</h1>
 
-    <% if @holidays %>
-      <p>Probably because it's <%= @holidays %></p>
-    <% elsif !@sports.empty? %>
-      <% @sports.each do |team| %>
-        <p>The <%= team %> are playing tonight and just won.</p>
+      <% if @holidays %>
+        <p>Probably because it's <%= @holidays %></p>
+      <% elsif !@sports.empty? %>
+        <% @sports.each do |team| %>
+          <p>The <%= team %> are playing tonight and just won.</p>
+        <% end %>
+      <% else %>
+        <p>No idea, it's either in your head or it could be Armageddon.</p>
       <% end %>
-    <% else %>
-      <p>No idea, it's either in your head or it might be Armageddon</p>
-    <% end %>
+    </div>
 
+    <p>Lovingly made by <strong>Team Megamackinnotron</strong></p>
   </body>
 </html>
