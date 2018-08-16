@@ -41,8 +41,7 @@ def check_holidays
 end
 
 def check_sports
-  logger.info "Checking Sports"
-  Scraper.new.check_for_games
+  @check_sports ||= Scraper.new.check_for_games
 end
 
 class Scraper
@@ -88,7 +87,7 @@ class Scraper
   end
 
   def check_for_games
-    games = []
+    games ||= []
 
     SPORTS_TEAMS.each do |team|
       puts "Checking site for #{team}"
