@@ -1,6 +1,6 @@
 require "sinatra"
 require "date"
-require "Holidays"
+require "holidays"
 require "HTTParty"
 require "pry" if development?
 require "sinatra/reloader" if development?
