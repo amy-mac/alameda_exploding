@@ -38,12 +38,11 @@ def check_holidays
   end
 
   # We only care about the holidays that might have explosions
-  holidays = holidays.map { |holiday| holiday[:name] }.detect { |hol| FIREWORK_HOLIDAYS.include?(hol) }
-  holidays
+  holidays.map { |holiday| holiday[:name] }.detect { |hol| FIREWORK_HOLIDAYS.include?(hol) }
 end
 
 def check_sports
-  check_sports = Scraper.new.check_for_games["teams"]
+  Scraper.new.check_for_games["teams"]
 end
 
 class Scraper
@@ -72,11 +71,11 @@ class Scraper
   def grab_page_info(team)
     case team
     when "Athletics"
-      info = HTTParty.get(baseball_url("531221"))
+      HTTParty.get(baseball_url("531221"))
     when "Giants"
-      info = HTTParty.get(baseball_url("531220"))
+      HTTParty.get(baseball_url("531220"))
     when "Warriors"
-      info = HTTParty.get(basketball_url)
+      HTTParty.get(basketball_url)
     end
   end
 
