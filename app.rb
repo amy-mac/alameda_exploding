@@ -34,7 +34,7 @@ def check_holidays
 
   # Might be the week of Independence Day, etc
   if holidays.empty? && Holidays.any_holidays_during_work_week?(today)
-    holidays = Holidays.next_holidays(1, [:us, :uk])
+    holidays = Holidays.next_holidays(1, [:us, :hk])
   end
 
   # We only care about the holidays that might have explosions
@@ -61,7 +61,7 @@ class Scraper
   end
 
   def baseball_url(id)
-    "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gamePk=#{id}&hydrate=team,linescore,flags,liveLookin,review,person,stats,probablePitcher,game(content(summary,media(epg)),tickets)&useLatestGames=true&language=en"
+    "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gamePk=#{id}&hydrate=team,linescore,liveLookin,person,stats,game(content(media(epg)))&useLatestGames=true&language=en"
   end
 
   def basketball_url
