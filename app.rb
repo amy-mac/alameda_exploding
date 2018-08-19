@@ -61,7 +61,7 @@ class Scraper
   end
 
   def baseball_url(id)
-    "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gamePk=#{id}&hydrate=team,linescore,liveLookin,person,stats,game(content(media(epg)))&useLatestGames=true&language=en"
+    "https://statsapi.mlb.com/api/v1/teams/#{id}?hydrate=previousSchedule(date=#{simple_date},season=#{Date.today.year},limit=7,gameType=[E,S,R,A,F,D,L,W],team,linescore(matchup,runners),liveLookin,decisions,person,stats,game(content(summary)),seriesStatus(useOverride=true)),nextSchedule(date=#{simple_date},season=#{Date.today.year},limit=2,gameType=[E,S,R,A,F,D,L,W],team,linescore(matchup,runners),liveLookin,decisions,person,stats,game(content(summary)),seriesStatus(useOverride=true))&useLatestGames=true&language=en"
   end
 
   def basketball_url
@@ -71,23 +71,23 @@ class Scraper
   def grab_page_info(team)
     case team
     when "Athletics"
-      HTTParty.get(baseball_url("531221"))
+      HTTParty.get(baseball_url("133")) # Team ID
     when "Giants"
-      HTTParty.get(baseball_url("531220"))
+      HTTParty.get(baseball_url("137")) # Team ID
     when "Warriors"
       HTTParty.get(basketball_url)
     end
   end
 
   def winning_baseball_game?(response)
-    response = response["dates"].first
+    revised_response = response["teams"].first["nextGameSchedule"]["dates"].first
 
-    home_game = response["date"] == simple_date && VENUE_NAMES.include?(response["games"][0]["venue"]["name"])
+    home_game = revised_response["date"] == simple_date && VENUE_NAMES.include?(revised_response["games"][0]["venue"]["name"])
 
     return false unless home_game
 
-    night_game = response["games"].first["dayNight"] == "night"
-    is_winner = response["games"].first["teams"]["home"]["isWinner"]
+    night_game = revised_response["games"].first["dayNight"] == "night"
+    is_winner = revised_response["games"].first["teams"]["home"]["isWinner"]
 
     home_game && night_game && is_winner
   end
