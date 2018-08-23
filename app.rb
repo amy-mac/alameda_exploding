@@ -27,15 +27,19 @@ FIREWORK_HOLIDAYS = [
   "The third day of Lunar New Year"
 ].freeze
 
+def holidays_around_today
+  start_date = Date.today.prev_day
+  end_date = Date.today.next_day
+  Holidays.between(start_date, end_date, :us, :us_mi, :hk)
+end
+
 def check_holidays
-  logger.info "Checking Holidays"
+  logger.info "Checking Holidays" unless settings.test?
   today = Date.today
-  holidays = Holidays.on(today, :us, :hk)
+  holidays = Holidays.on(today, :us, :us_mi, :hk)
 
   # Might be the week of Independence Day, etc
-  if holidays.empty? && Holidays.any_holidays_during_work_week?(today)
-    holidays = Holidays.next_holidays(1, [:us, :hk])
-  end
+  holidays = holidays_around_today if holidays.empty?
 
   # We only care about the holidays that might have explosions
   holidays.map { |holiday| holiday[:name] }.detect { |hol| FIREWORK_HOLIDAYS.include?(hol) }
@@ -57,7 +61,7 @@ class Scraper
   end
 
   def simple_date
-    @date ||= Date.today.strftime("%F")
+    @simple_date ||= Date.today.to_s
   end
 
   def baseball_url(id)
