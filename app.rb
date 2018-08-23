@@ -3,7 +3,7 @@ require "date"
 require "holidays"
 require "httparty"
 require 'iron_cache'
-require "pry" if development?
+require "pry" if development? || test?
 require "sinatra/reloader" if development?
 
 
