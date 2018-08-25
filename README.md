@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/amy-mac/alameda_exploding.svg?branch=master)](https://travis-ci.com/amy-mac/alameda_exploding)
+
 # Is Alameda Exploding?
 This was a small project inspired by Is Oakland On Fire?. It provides a one-stop site for those who live on Alameda Island to quickly discover why we're hearing fireworks _this_ time.
 
