@@ -91,9 +91,9 @@ class Scraper
     return false unless home_game
 
     night_game = revised_response["games"].first["dayNight"] == "night"
-    is_winner = revised_response["games"].first["teams"]["home"]["isWinner"]
+    # is_winner = revised_response["games"].first["teams"]["home"]["isWinner"]
 
-    home_game && night_game && is_winner
+    home_game && night_game
   end
 
   def check_for_games
