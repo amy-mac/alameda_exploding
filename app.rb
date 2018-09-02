@@ -2,7 +2,7 @@ require "sinatra"
 require "date"
 require "holidays"
 require "httparty"
-require 'iron_cache'
+require "iron_cache"
 require "pry" if development? || test?
 require "sinatra/reloader" if development?
 
@@ -56,8 +56,8 @@ class Scraper
   VENUE_NAMES = ["AT&T Park", "Oakland Coliseum"].freeze
 
   def initialize
-    @ironcache = IronCache::Client.new
-    @sports_cache = @ironcache.cache("sports")
+    # @ironcache = IronCache::Client.new
+    # @sports_cache = @ironcache.cache("sports")
   end
 
   def simple_date
@@ -97,7 +97,7 @@ class Scraper
   end
 
   def check_for_games
-    return JSON.parse(@sports_cache.get("games").value) if @sports_cache.get("games")
+    # return JSON.parse(@sports_cache.get("games").value) if @sports_cache.get("games")
 
     games = { teams: [] }
 
@@ -119,7 +119,8 @@ class Scraper
     end
 
     # TODO: if winning game then take longer to expire
-    @sports_cache.put("games", games.to_json, :expires_in => 120)
-    JSON.parse(@sports_cache.get("games").value)
+    # @sports_cache.put("games", games.to_json, :expires_in => 120)
+    # JSON.parse(@sports_cache.get("games").value)
+    games
   end
 end
