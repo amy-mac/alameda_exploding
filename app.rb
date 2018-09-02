@@ -46,7 +46,8 @@ def check_holidays
 end
 
 def check_sports
-  Scraper.new.check_for_games["teams"]
+  # Scraper.new.check_for_games["teams"]
+  Scraper.new.check_for_games
 end
 
 class Scraper
@@ -121,6 +122,6 @@ class Scraper
     # TODO: if winning game then take longer to expire
     # @sports_cache.put("games", games.to_json, :expires_in => 120)
     # JSON.parse(@sports_cache.get("games").value)
-    games
+    games[:teams]
   end
 end
